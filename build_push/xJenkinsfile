@@ -59,7 +59,8 @@ pipeline {
                 echo 'FAILED'
                 sh "docker rmi ${dockerImageName}"
                 emailext body: 'currentBuild.displayName', replyTo: 'stu@stubrown.uk.net', subject: 'currentBuild.displayName', to: 'sbrown@cloudbees.com'
-            }
+           
+           }
         }
         always {
             echo 'DONE'
