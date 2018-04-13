@@ -58,6 +58,7 @@ pipeline {
             container('docker'){
                 echo 'FAILED'
                 sh "docker rmi ${dockerImageName}"
+                mail bcc: '', body: 'Details to send ', cc: '', from: '', replyTo: '', subject: 'BuildFailed', to: 'sbrown@cloudbees.com'
             }
         }
         always {
