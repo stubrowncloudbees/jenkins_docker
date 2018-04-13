@@ -11,6 +11,7 @@ env.DOCKER_IMAGE = "stuartcbrown/jentest:${DOCKER_VERSION}"
 def dockerImageName = ''
 
 echo "The DOCKER_VERSION: " + env.DOCKER_VERSION
+echo "The DOCKER_IMAGE: " + env.DOCKER_IMAGE
 
 pipeline {
 
