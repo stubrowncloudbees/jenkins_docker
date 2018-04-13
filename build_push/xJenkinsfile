@@ -24,15 +24,15 @@ pipeline {
             steps {
                 container('docker'){
                     script (){
-                        //docker.withRegistry('https://registry.hub.docker.com','docker_creds') {
-                        withCredentials([usernamePassword(credentialsId: 'docker_creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                            sh "docker login -u ${USERNAME} -p ${PASSWORD}"
+                        docker.withRegistry('https://registry.hub.docker.com','docker_creds') {
+                        //withCredentials([usernamePassword(credentialsId: 'docker_creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                            //sh "docker login -u ${USERNAME} -p ${PASSWORD}"
                             sh 'rm -rf build.name'
                             sh "echo '$DOCKER_IMAGE' > build.name"
                             dockerImageName = readFile('build.name').trim()
                             echo "Docker image nane is ${dockerImageName}"
-                            //def dockerImage = docker.build(dockerImageName, ".")
-                            sh "docker build -t ${dockerImageName} ."
+                            def dockerImage = docker.build(dockerImageName, ".")
+                            //sh "docker build -t ${dockerImageName} ."
                             echo "running"
                            
                         }
@@ -45,8 +45,9 @@ pipeline {
     post {
         success {
             container('docker'){
-                    script(){
-                        sh "docker push ${dockerImageName}"
+                    withDockerRegistry([ credentialsId: "docker_creds", url: "https://registry.hub.docker.com" ]) {
+                        //sh 'echo pushing'
+                        sh 'docker push stuartcbrown/jentest:master.15mst'
                     }
             }
         }
