@@ -41,7 +41,7 @@ pipeline {
                             
                             sh "docker build -t ${dockerImageName} ."
                             
-                            //sh "docker push ${DOCKER_IMAGE}"
+                            sh "docker push ${dockerImageName}"
                             echo "running"
                            
                         }
