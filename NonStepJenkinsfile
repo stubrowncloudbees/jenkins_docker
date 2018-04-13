@@ -31,6 +31,7 @@ pipeline {
                 container('docker'){
                     script (){
                         //docker.withRegistry('https://registry.hub.docker.com','docker_creds') {
+                        withCredentials([usernamePassword(credentialsId: 'docker_creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                             sh 'rm -rf build.name'
                             sh "echo '$DOCKER_IMAGE' > build.name"
                             def dockerImageName = readFile('build.name').trim()
