@@ -86,8 +86,10 @@ pipeline {
             echo 'UNSTABLE'
         }
         failure {
-            echo 'FAILED'
-            sh "docker rmi ${DOCKER_IMAGE}"
+            container('docker'){
+                echo 'FAILED'
+                sh "docker rmi ${DOCKER_IMAGE}"
+            }
         }
         always {
             echo 'DONE'
