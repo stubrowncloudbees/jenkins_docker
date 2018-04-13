@@ -16,9 +16,9 @@ echo "the branch name is " + env.BRANCH_NAME
 env.DOCKER_VERSION = env.BRANCH_NAME.replaceAll("/", ".") + ".${BUILD_NUMBER}" + env.ENV_SUFFIX
 
 env.DOCKER_IMAGE = "stuartcbrown/jentest:${DOCKER_VERSION}"
-
-pipeline {
 def dockerImageName = ''
+pipeline {
+
     agent { 
         node {
             label 'gen-docker' 
