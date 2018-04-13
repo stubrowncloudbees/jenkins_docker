@@ -1,5 +1,3 @@
-
-
 currentBuild.displayName = "#" + currentBuild.number + " - " + env.BRANCH_NAME
 
 if (env.BRANCH_NAME == "master") {
@@ -9,10 +7,13 @@ if (env.BRANCH_NAME == "master") {
 }
 echo "the branch name is " + env.BRANCH_NAME
 env.DOCKER_VERSION = env.BRANCH_NAME.replaceAll("/", ".") + ".${BUILD_NUMBER}" + env.ENV_SUFFIX
-
 env.DOCKER_IMAGE = "stuartcbrown/jentest:${DOCKER_VERSION}"
 def dockerImageName = ''
+
+echo "The DOCKER_VERSION: " + env.DOCKER_VERSION
+
 pipeline {
+
 
     agent { 
         node {
