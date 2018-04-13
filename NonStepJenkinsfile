@@ -32,7 +32,7 @@ pipeline {
                     script (){
                         //docker.withRegistry('https://registry.hub.docker.com','docker_creds') {
                         withCredentials([usernamePassword(credentialsId: 'docker_creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                            docker login -u ${USERNAME} -p ${PASSWORD} 
+                            sh "docker login -u ${USERNAME} -p ${PASSWORD}"
                             sh 'rm -rf build.name'
                             sh "echo '$DOCKER_IMAGE' > build.name"
                             def dockerImageName = readFile('build.name').trim()
