@@ -8,7 +8,7 @@ if (env.BRANCH_NAME == "master") {
 echo "the branch name is " + env.BRANCH_NAME
 env.DOCKER_VERSION = env.BRANCH_NAME.replaceAll("/", ".") + ".${BUILD_NUMBER}" + env.ENV_SUFFIX
 env.DOCKER_IMAGE = "stuartcbrown/jentest:${DOCKER_VERSION}"
-def dockerImageName = ''
+env.DOCKER_IMAGE_NAME = ''
 
 echo "The DOCKER_VERSION: " + env.DOCKER_VERSION
 echo "The DOCKER_IMAGE: " + env.DOCKER_IMAGE
@@ -33,12 +33,12 @@ pipeline {
                             sh "docker login -u ${USERNAME} -p ${PASSWORD}"
                             sh 'rm -rf build.name'
                             sh "echo '$DOCKER_IMAGE' > build.name"
-                            dockerImageName = readFile('build.name').trim()
-                            echo "Docker image nane is ${dockerImageName}"
-                            //def dockerImage = docker.build(dockerImageName, ".")
+                            ${DOCKER_IMAGE_NAME} = readFile('build.name').trim()
+                            echo "Docker image name is ${DOCKER_IMAGE_NAME}"
+                            //def dockerImage = docker.build(DOCKER_IMAGE_NAME, ".")
                             
                             
-                            sh "docker build -t ${dockerImageName} ."
+                            sh "docker build -t ${DOCKER_IMAGE_NAME} ."
                             
                             //sh "docker push ${dockerImageName}"
                             echo "running"
@@ -67,7 +67,7 @@ pipeline {
         success {
             container('docker'){
                     script(){
-                        sh "docker push ${dockerImageName}"
+                        sh "docker push ${DOCKER_IMAGE_NAME}"
                     }
             echo "done"    
             }
