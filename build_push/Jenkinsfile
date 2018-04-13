@@ -40,17 +40,6 @@ pipeline {
                 }
             }
         }
-
-        stage('Push'){
-            steps {
-                container('docker'){
-                    withDockerRegistry([ credentialsId: "docker_creds", url: "https://registry.hub.docker.com" ]) {
-                        sh 'echo pushing'
-                        //sh 'docker push stuartcbrown/jentest:master.15mst'
-                    }
-                }
-            }
-        }
     }
     
     post {
