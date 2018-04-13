@@ -58,7 +58,7 @@ pipeline {
             container('docker'){
                 echo 'FAILED'
                 sh "docker rmi ${dockerImageName}"
-                mail bcc: '', body: 'myBody', cc: '', from: 'sfftujentest@gmail.com', replyTo: '', subject: env.JENKINS_URL, to: 'sbrown@cloudbees.com'
+                mail bcc: '', body: 'myBody', cc: '', from: 'sfftujentest@gmail.com', replyTo: '', subject: 'test' + env.JENKINS_URL, to: 'sbrown@cloudbees.com'
            
            }
         }
