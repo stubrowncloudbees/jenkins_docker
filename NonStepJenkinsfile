@@ -8,7 +8,7 @@ import java.net.URL
 currentBuild.displayName = "#" + currentBuild.number + " - " + env.BRANCH_NAME
 
 if (env.BRANCH_NAME == "master") {
-    env.ENV_SUFFIX = "mst"
+    env.ENV_SUFFIX = ""
 } else {
     env.ENV_SUFFIX = ".qa"
 }
