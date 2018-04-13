@@ -24,15 +24,15 @@ pipeline {
             steps {
                 container('docker'){
                     script (){
-                        //docker.withRegistry('https://registry.hub.docker.com','docker_creds') {
-                        withCredentials([usernamePassword(credentialsId: 'docker_creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                            sh "docker login -u ${USERNAME} -p ${PASSWORD}"
+                        docker.withRegistry('https://registry.hub.docker.com','docker_creds') {
+                        //withCredentials([usernamePassword(credentialsId: 'docker_creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                            //sh "docker login -u ${USERNAME} -p ${PASSWORD}"
                             sh 'rm -rf build.name'
                             sh "echo '$DOCKER_IMAGE' > build.name"
                             dockerImageName = readFile('build.name').trim()
                             echo "Docker image nane is ${dockerImageName}"
-                            //def dockerImage = docker.build(dockerImageName, ".")
-                            sh "docker build -t ${dockerImageName} ."
+                            def dockerImage = docker.build(dockerImageName, ".")
+                            //sh "docker build -t ${dockerImageName} ."
                             echo "running"
                            
                         }
