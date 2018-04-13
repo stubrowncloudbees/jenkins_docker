@@ -34,10 +34,11 @@ pipeline {
                             sh 'rm -rf build.name'
                             sh "echo '$DOCKER_IMAGE' > build.name"
                             def dockerImageName = readFile('build.name').trim()
-                            //def dockerImage = docker.build(dockerImageName, ".")
                             echo "Docker image nane is ${dockerImageName}"
+                            def dockerImage = docker.build(dockerImageName, ".")
                             
-                            sh "docker build -t ${dockerImageName} ."
+                            
+                            //sh "docker build -t ${dockerImageName} ."
                             
                             //sh "docker push ${DOCKER_IMAGE}"
                             echo "running"
