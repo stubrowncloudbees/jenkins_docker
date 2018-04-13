@@ -18,7 +18,7 @@ env.DOCKER_VERSION = env.BRANCH_NAME.replaceAll("/", ".") + ".${BUILD_NUMBER}" +
 env.DOCKER_IMAGE = "stuartcbrown/jentest:${DOCKER_VERSION}"
 
 pipeline {
-dev dockerImageName = ''
+def dockerImageName = ''
     agent { 
         node {
             label 'gen-docker' 
